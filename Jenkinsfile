@@ -28,7 +28,7 @@ node {
         sh "sudo docker push ${imageName}"
 
     stage "Deploy (QA)"
-        sh "sed 's#rhlnair87/mytest:latest#'$BUILDIMG'#' applications/nginx-app/k8s/deployment.yaml | kubectl apply --namespace=core-svc -f -"
+        sh "sed 's#rhlnair87/mytest:latest#'$BUILDIMG'#' applications/nginx-app/k8s/deployment.yaml | kubectl apply --namespace=qa -f -"
         sh "kubectl rollout status deployment/mytest --namespace=qa"
     
     stage "Smoke Test"
@@ -36,7 +36,7 @@ node {
         sh "kubectl get svc -n qa mytest --output=json | jq -j '.spec.clusterIP' |  xargs  curl | grep Hello-Rahul"
     
     stage "Deploy (Staging)"
-        sh "sed 's#rhlnair87/mytest:latest#'$BUILDIMG'#' applications/nginx-app/k8s/deployment.yaml | kubectl apply --namespace=core-svc -f -"
+        sh "sed 's#rhlnair87/mytest:latest#'$BUILDIMG'#' applications/nginx-app/k8s/deployment.yaml | kubectl apply --namespace=staging -f -"
         sh "kubectl rollout status deployment/mytest --namespace=staging"
     
     stage "Smoke Test"
@@ -44,7 +44,7 @@ node {
         sh "kubectl get svc -n staging mytest --output=json | jq -j '.spec.clusterIP' |  xargs  curl | grep Hello-Rahul"
     
     stage "Deploy (Production)"
-        sh "sed 's#rhlnair87/mytest:latest#'$BUILDIMG'#' applications/nginx-app/k8s/deployment.yaml | kubectl apply --namespace=core-svc -f -"
+        sh "sed 's#rhlnair87/mytest:latest#'$BUILDIMG'#' applications/nginx-app/k8s/deployment.yaml | kubectl apply --namespace=production -f -"
         sh "kubectl rollout status deployment/mytest --namespace=production"
 
     stage "Smoke Test"
