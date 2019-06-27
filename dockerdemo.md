@@ -57,7 +57,7 @@ Detach from a container:
 # use the escape sequence Ctrl-p + Ctrl-q
 ```
 
-####Basic understanding of images and containers:
+#### Basic understanding of images and containers:
 http://docs.docker.com/terms/image/
 http://docs.docker.com/terms/layer/
 http://docs.docker.com/terms/container/
