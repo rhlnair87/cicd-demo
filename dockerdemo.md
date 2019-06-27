@@ -58,9 +58,11 @@ Detach from a container:
 ```
 
 #### Basic understanding of images and containers:
+```
 http://docs.docker.com/terms/image/
 http://docs.docker.com/terms/layer/
 http://docs.docker.com/terms/container/
+```
 
 If you want the container to be saved into image you can use “docker commit” to push the image to repo.
 
